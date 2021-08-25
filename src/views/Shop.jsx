@@ -1,65 +1,95 @@
 import React, {useEffect, useState} from 'react';
 import ItemCard from "./shopComponents/ItemCard";
 import './viewsStyles/Shop.css'
+import TableComponent from "../GlobalComponents/TableComponent";
 
 function Shop({items}) {
 
-    useEffect(()=>{
-        console.log('shop' )
-    },[])
-
-    useEffect(() => {
-        console.log(Array.isArray(items));
-    }, [items]);
-
-    const [cartShop, setCartShop] = useState([]);
 
     //region SHOP CART
 
-    //Memory usage
-    let cartIndex;
-    let cartItem;
-    let tempState;
-    function handleCart(id) {
 
-        //Create temp state and take the item we want to modify
-        tempState = cartShop;
-        cartIndex = tempState.findIndex(item => item.id === id);
+    const [cartShop, setCartShop] = useState([]);
+    const [cartSelectedItem, setCartSelectedItem] = useState(null);
 
-        //If item exists we modify it
-        if (cartIndex !== -1) {
-            cartItem = tempState[cartIndex];
+    //Chose Item
+    function handleAddCart(id, name, price, image) {
 
-            console.log('cartItem ',cartItem);
-
-            cartItem = {
-                ...cartItem,
-                count: cartItem.count += 1
-            }
-
-            tempState[cartIndex] = cartItem
-
-            setCartShop(tempState);
-
-            //If item doesn't exist, we create it.
-        }else {
-            setCartShop([...cartShop, {id, count: 1}])
-        }
+        setCartSelectedItem({
+            id: id,
+            name: name,
+            price: price,
+            count: 1
+        })
 
     }
 
+    //Add item to cart
+
+    useEffect(() => {
+
+        if (cartSelectedItem) {
+
+            const selectedID = cartSelectedItem.id;
+
+            console.log('selectedID ', selectedID);
+
+
+            const existsItem = cartShop.findIndex(element => element.id === selectedID)
+
+            console.log('existsItem ', existsItem);
+
+            //IF ITEM DOESNT EXIST
+            if (existsItem === -1) {
+                console.log('Added item')
+                setCartShop([...cartShop, cartSelectedItem])
+
+            } else {
+
+                //ITEM ALREADY EXISTS
+                const tempState = cartShop;
+                const currentCount = cartShop[selectedID]?.count +1;
+                let currentElement = cartShop[selectedID];
+                currentElement.count = currentCount;
+
+                // console.log('currentElement  ', currentElement)
+
+                tempState[selectedID] = currentElement;
+
+                // console.log('tempState  ', tempState)
+
+                setCartShop(tempState);
+
+
+            }
+
+
+        }
+        console.log('cartSelectedItem ', cartSelectedItem)
+
+    }, [cartSelectedItem])
+
+
+    useEffect(() => {
+        console.log('cartShop ', cartShop);
+    }, [cartShop])
+
     //endregion SHOP CART
 
-    useEffect(()=>{
-        console.log(cartShop);
-    },[cartShop])
 
+    //region TABLE GENERATION
+
+
+    //endregion TABLE GENERATION
 
     return (
         <div className="shop-view">
+            <div className="buy-details">
+                <TableComponent infoToDisplay={cartShop}/>
+            </div>
             <div className={'items-container'}>
                 {items.map((item) => {
-                    return <ItemCard key={item.id} item={item} handleCart={handleCart}/>
+                    return <ItemCard key={item.id} item={item} handleCart={handleAddCart}/>
                 })}
 
             </div>
