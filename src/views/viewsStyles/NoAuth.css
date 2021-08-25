@@ -1,0 +1,21 @@
+
+
+.no-auth{
+
+    height: 100vh;
+
+    background: #601212;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+
+}
+
+.no-auth h1{
+    font-size: 4rem;
+}

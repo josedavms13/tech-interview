@@ -5,12 +5,10 @@ import authContext from './context/AuthContext'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import AuthContext from "./context/AuthContext";
 import ProtectedRoute from "./GlobalComponents/ProtectedRoute";
-import ViewToProtect from "./views/ViewToProtect";
 import NavBarComponent from "./GlobalComponents/NavBarComponent";
-import TableRender from "./views/TableRender";
 import WhenNoOuth from "./views/WhenNoOuth";
 import LogIn from "./views/logIn";
-import {useAuth, ProvideAuth} from "./provider/AuthProvider";
+import {useAuth} from "./provider/AuthProvider";
 import AdminPage from "./views/AdminPage";
 import {getItemService} from "./services/getItemService";
 import Home from "./views/home";
@@ -60,10 +58,6 @@ function App() {
                         <Route path={'/shop'} component={Shop}>
                             {<ProtectedRoute component={Shop} needAdmin={false} items={shopItems}/>}
                         </Route>
-
-                        {/*<Route path={'/table'}>*/}
-                        {/*    <TableRender toRender={arrayOfItems}/>*/}
-                        {/*</Route>*/}
 
                         <Route path={'/admin-page'}>
                             <ProtectedRoute component={AdminPage} needAdmin={true}/>

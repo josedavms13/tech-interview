@@ -1,8 +1,9 @@
 import React from 'react';
+import './viewsStyles/AdminPage.css'
 
 function AdminPage({props}) {
     return (
-        <div>ADMIN PAGE</div>
+        <div className={'admin-page'}>ADMIN PAGE</div>
     );
 }
 

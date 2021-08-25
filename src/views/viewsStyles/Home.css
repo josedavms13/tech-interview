@@ -1,0 +1,36 @@
+.home{
+
+    box-sizing: border-box;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+
+    color: white;
+
+}
+
+.home h1{
+    font-size: 4rem;
+}
+
+.home button{
+    margin: 20px;
+    padding: 15px;
+    font-size: 2rem;
+
+    border-radius: 15px;
+    transition: all 0.5s;
+    background: #212121;
+    border: white solid 1px;
+    color: white;
+}
+.home button:hover{
+    padding: 20px;
+    box-shadow: black 10px 10px 10px;
+}

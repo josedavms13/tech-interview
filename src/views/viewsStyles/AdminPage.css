@@ -1,0 +1,13 @@
+.admin-page{
+    background: #004d59;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 5rem;
+}

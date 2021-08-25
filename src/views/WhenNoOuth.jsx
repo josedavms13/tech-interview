@@ -1,8 +1,12 @@
 import React from 'react';
+import './viewsStyles/NoAuth.css'
 
 function WhenNoOuth(props) {
     return (
-        <div>No Auth</div>
+        <div className={'no-auth'}>
+            <h1>No Auth</h1>
+            <h1>:(</h1>
+        </div>
     );
 }
 
