@@ -21,24 +21,38 @@ const fakeAuth ={
 //custom Auth hook
 const useProviderAuth =()=> {
 
-    const [isAuth, setAuth] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [user, setUser] = useState({
+        name : '',
+        isAdmin : false,
+        isAuth : false,
+    });
 
 
-    const logIn = (logInCallback)=>{
+    const logIn = (name, logInCallback)=>{
         //Calls Auth Services to log in
 
         fakeAuth.logIn(()=>{
-            setAuth(true);
+            setUser({
+                ...user,
+                name: name,
+                isAuth: true,
+                isAdmin: false,
+            })
             logInCallback();
         })
     }
 
-    const logInAsAdmin = (logInAsAdminCallback)=>{
+    const logInAsAdmin = (name, logInAsAdminCallback)=>{
 
         fakeAuth.logIn(()=>{
-            setAuth(true);
-            setIsAdmin(true);
+
+            setUser({
+                ...user,
+                name: name,
+                isAuth: true,
+                isAdmin: true,
+            })
+
             logInAsAdminCallback(); // WHEN IS ADMIN AUTH
         })
 
@@ -47,12 +61,17 @@ const useProviderAuth =()=> {
     const logOut = (logOutCallback)=>{
 
         fakeAuth.logIn(()=>{
-            setAuth(false);
+            setUser({
+                ...user,
+                name: '',
+                isAuth: false,
+                isAdmin: false,
+            })
             logOutCallback();
         })
     }
 
-    return { isAuth, isAdmin ,logIn, logOut}
+    return { user, logInAsAdmin ,logIn, logOut}
 
 }
 //HOC

@@ -12,13 +12,14 @@ function NavBarComponent({}) {
 
         <Navbar bg="dark" variant={"dark"} expand="md">
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#home">A multinational company store :)</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#/protected">Protected</Nav.Link>
                         <Nav.Link href="#/log-in">Login</Nav.Link>
+                        <Nav.Link href="#/admin-page">ADMIN</Nav.Link>
+                        <Nav.Link href="#/shop">Shop</Nav.Link>
                         <Nav.Link href="#/table">table</Nav.Link>
                         <NavDropdown  title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

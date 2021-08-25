@@ -4,18 +4,28 @@ import AuthContext from "../context/AuthContext";
 import {render} from "react-dom";
 import {useAuth} from "../provider/AuthProvider";
 
-function ProtectedRoute({component: Component, ...rest}) {
+function ProtectedRoute({needAdmin,component: Component, ...rest}) {
+    
+    
     
     //Is Auth Context
-    const isAuthContext = useAuth();
-    let isAuth = isAuthContext.isAuth;
+    const userContext = useAuth();
+    const isAuth = userContext.user;
 
     useEffect(()=>{
         console.log(isAuth)
     },[isAuth])
 
     return <Route {...rest} render={(props)=>{
-        if(isAuth){
+        if(isAuth.isAuth){
+            if(needAdmin){
+                if(isAuth.isAdmin){
+                    return <Component />
+                }
+                else{
+                    return <Redirect to={'/no-auth'}/>
+                }
+            }
             return <Component />
         }else{
             return <Redirect to={'/no-auth'}/>
