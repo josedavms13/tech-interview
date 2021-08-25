@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-function Shop(props) {
+function Shop(items) {
+
+    useEffect(()=>{
+        console.log('shop' )
+    },[])
+
+    useEffect(() => {
+        console.log(items);
+    }, [items]);
+
+
     return (
-        <div></div>
+        <div>
+
+        </div>
     );
 }
 

@@ -4,7 +4,7 @@ import AuthContext from "../context/AuthContext";
 import {render} from "react-dom";
 import {useAuth} from "../provider/AuthProvider";
 
-function ProtectedRoute({needAdmin,component: Component, ...rest}) {
+function ProtectedRoute({needAdmin:needAdmin, component: Component, ...rest}) {
     
     
     
@@ -12,21 +12,18 @@ function ProtectedRoute({needAdmin,component: Component, ...rest}) {
     const userContext = useAuth();
     const isAuth = userContext.user;
 
-    useEffect(()=>{
-        console.log(isAuth)
-    },[isAuth])
-
     return <Route {...rest} render={(props)=>{
         if(isAuth.isAuth){
             if(needAdmin){
                 if(isAuth.isAdmin){
-                    return <Component />
+                    return <Component {...rest}/>
                 }
                 else{
                     return <Redirect to={'/no-auth'}/>
                 }
+            }else {
+                return <Component {...rest}/>
             }
-            return <Component />
         }else{
             return <Redirect to={'/no-auth'}/>
         }

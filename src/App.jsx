@@ -12,19 +12,41 @@ import WhenNoOuth from "./views/WhenNoOuth";
 import LogIn from "./views/logIn";
 import {useAuth, ProvideAuth} from "./provider/AuthProvider";
 import AdminPage from "./views/AdminPage";
+import {getItemService} from "./services/getItemService";
+import Home from "./views/home";
+import Shop from "./views/Shop";
 
 
 function App() {
 
-    const auth = useAuth();
 
     const arrayOfItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const {user} = useAuth();
 
+    // Because of interview
     useEffect(()=>{
         console.log(user);
+
     },[user])
+
+
+    const [shopItems, setShopItems] = useState(null);
+    // WHEN APP LOADS
+    useEffect(() => {
+        let items;
+
+
+        items = getItemService();
+
+
+        setShopItems(items)
+
+        console.log(shopItems);
+
+    }, []);
+
+
 
     return (
         <div className="App">
@@ -35,13 +57,13 @@ function App() {
                 <Router>
                     <Switch>
 
-                        <Route path={'/shop'}>
-                            <ProtectedRoute component={ViewToProtect} needAdmin={false} hi={12}/>
+                        <Route path={'/shop'} component={Shop}>
+                            {<ProtectedRoute component={Shop} needAdmin={false} items={shopItems}/>}
                         </Route>
 
-                        <Route path={'/table'}>
-                            <TableRender toRender={arrayOfItems}/>
-                        </Route>
+                        {/*<Route path={'/table'}>*/}
+                        {/*    <TableRender toRender={arrayOfItems}/>*/}
+                        {/*</Route>*/}
 
                         <Route path={'/admin-page'}>
                             <ProtectedRoute component={AdminPage} needAdmin={true}/>
@@ -53,6 +75,14 @@ function App() {
 
                         <Route path={'/log-in'}>
                             <LogIn/>
+                        </Route>
+
+                        <Route path={'/home'}>
+                            <Home />
+                        </Route>
+
+                        <Route path={'/'}>
+                            <Redirect to={'/home'} />
                         </Route>
 
                     </Switch>
