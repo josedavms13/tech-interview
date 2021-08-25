@@ -9,6 +9,9 @@ const fakeAuth ={
     logIn: (logInCallback)=>{
         logInCallback();
     },
+    logInAsAdmin: (callback)=>{
+        callback()
+    },
     logOut: (logOutCallback)=>{
         logOutCallback();
     }
@@ -19,6 +22,7 @@ const fakeAuth ={
 const useProviderAuth =()=> {
 
     const [isAuth, setAuth] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
     const logIn = (logInCallback)=>{
@@ -29,6 +33,17 @@ const useProviderAuth =()=> {
             logInCallback();
         })
     }
+
+    const logInAsAdmin = (logInAsAdminCallback)=>{
+
+        fakeAuth.logIn(()=>{
+            setAuth(true);
+            setIsAdmin(true);
+            logInAsAdminCallback(); // WHEN IS ADMIN AUTH
+        })
+
+    }
+
     const logOut = (logOutCallback)=>{
 
         fakeAuth.logIn(()=>{
@@ -37,7 +52,7 @@ const useProviderAuth =()=> {
         })
     }
 
-    return { isAuth ,logIn, logOut}
+    return { isAuth, isAdmin ,logIn, logOut}
 
 }
 //HOC

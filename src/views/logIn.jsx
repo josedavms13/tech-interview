@@ -11,7 +11,7 @@ function LogIn(props) {
 
 
     return (
-        <div>
+        <div className={'log-in-page'}>
             <button onClick={()=>{logIn(()=>{
                 //LOG IN CALLBACK
                 history.push('/protected');
