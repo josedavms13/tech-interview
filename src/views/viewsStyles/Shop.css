@@ -1,0 +1,11 @@
+.items-container{
+    background-color: red;
+
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.item-card{
+    background-color: lime;
+}
